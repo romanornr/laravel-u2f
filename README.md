@@ -1,14 +1,14 @@
 # laravel-u2f
 [![Code Climate](https://codeclimate.com/github/certly/laravel-u2f/badges/gpa.svg)](https://codeclimate.com/github/certly/laravel-u2f) [![Build Status](https://travis-ci.org/certly/laravel-u2f.svg?branch=master)](https://travis-ci.org/certly/laravel-u2f)
 
-Integrate FIDO U2F into Laravel 5.x applications. You'll need to be accessing your application from an [App ID compliant](https://developers.yubico.com/U2F/App_ID.html) domain; `localhost` support is finicky.
+Integrate FIDO U2F into Laravel 5.4.x applications. You'll need to be accessing your application from an [App ID compliant](https://developers.yubico.com/U2F/App_ID.html) domain; `localhost` support is finicky.
 
 ## Install
 ``` bash
 composer require certly/laravel-u2f
 ```
 
-In `config/app.php`, add the provider `Certly\U2f\LaravelU2fServiceProvider::class` to the providers array and `'U2f' => Certly\U2f\U2fServiceFacade::class` to the aliases array.
+In `config/app.php`, add the provider `Certly\U2f\U2fServiceProvider::class,` to the providers array and `'U2f' => Certly\U2f\U2fServiceProvider::class,` to the aliases array.
 
 
 ### Publishing
@@ -38,7 +38,7 @@ In the `app/Http/Kernel.php` file, add the following to `$routeMiddleware`. This
 ``` php
 protected $routeMiddleware = [
     // ...
-    'u2f' => Certly\U2f\Http\Middleware\U2f::class,
+    'u2f' => \App\U2f\Http\Middleware\U2f::class,
 ];
 ```
 
