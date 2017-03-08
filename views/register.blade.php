@@ -1,15 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="Content-Language" content="fr" />
-    <script src="{!! secure_asset('vendor/u2f/u2f.js') !!}"></script>
-    <script src="{!! secure_asset('vendor/u2f/app.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('js/u2f/u2f.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('js/u2f/app.js') !!}"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
 
 
 <div class="container" style="margin-top:30px">
