@@ -93,7 +93,7 @@ class U2fController extends Controller
             session()->forget('u2f.authenticationData');
             return $this->redirectAfterSuccessAuth();
         } catch (Exception $e) {
-            //Session::flash('error', $e->getMessage());
+            $request->session()->flash('error', $e->getMessage());
             return redirect()->route('u2f.auth.data');
         }
     }
