@@ -29,44 +29,44 @@ class U2fController extends Controller
     }
 
     /**
-    * @param  Request $request
-    * @return mixed
-    */
+     * @param  Request $request
+     * @return mixed
+     */
     public function registerData(Request $request)
     {
         $user = $request->user();
         list($req, $sigs) = $this->u2f->getRegisterData($user);
         event('u2f.register.data', ['user' => $user]);
-        session()->put('u2f.registerData');
+        $request->session()->put('u2f.registerData', $req);
         return view($this->config->get('u2f.register.view'))
             ->with('currentKeys', $sigs)
             ->with('registerData', $req);
     }
 
     /**
-    * @param  Request $request
-    * @return mixed
-    */
+     * @param  Request $request [Get current $user via $request]
+     * @return mixed
+     */
     public function register(Request $request)
     {
         $user = $request->user();
         try {
-            $key = $this->u2f->doRegister($user, session()->put('u2f.registerData'), json_decode($request->input('register')));
+            $key = $this->u2f->doRegister($user, session()->get('u2f.registerData'), json_decode($request->input('register')));
             event('u2f.register', ['u2fKey' => $key, 'user' => $user]);
-            session()->forget('u2f.registerData');
+            $request->session()->forget('u2f.registerData');
             if ($this->config->get('u2f.register.postSuccessRedirectRoute')) {
                 return redirect()->route($this->config->get('u2f.register.postSuccessRedirectRoute'));
             }
             return redirect('/');
         } catch (Exception $e) {
-            return redirect()->route('u2f.register.data');
+            return redirect()->action('U2fController@registerData');
         }
     }
 
     /**
-    * @param  Request $request
-    * @return mixed
-    */
+     * @param  Request $request
+     * @return mixed
+     */
     public function authData(Request $request)
     {
         $user = $request->user();
@@ -74,33 +74,33 @@ class U2fController extends Controller
 
         $req = $this->u2f->getAuthenticateData($user);
         event('u2f.authentication.data', ['user' => $user]);
-        session()->put('u2f.authenticationData', $req);
+        $request->session()->put('u2f.authenticationData', $req);
 
         return view($this->config->get('u2f.authenticate.view'))
             ->with('authenticationData', $req);
     }
 
     /**
-    * @param  Request $request
-    * @return mixed
-    */
+     * @param  Request $request
+     * @return mixed
+     */
     public function auth(Request $request)
     {
         $user = $request->user();
         try {
             $key = $this->u2f->doAuthenticate($user, session()->put('u2f.authenticationData'), json_decode($request->input('authentication')));
             event('u2f.authentication', ['u2fKey' => $key, 'user' => $user]);
-            session()->forget('u2f.authenticationData');
+            $request->session()->forget('u2f.authenticationData');
             return $this->redirectAfterSuccessAuth();
         } catch (Exception $e) {
             $request->session()->flash('error', $e->getMessage());
-            return redirect()->route('u2f.auth.data');
+            return redirect()->action('U2fController@authData');
         }
     }
 
     /**
-    * @return mixed
-    */
+     * @return mixed
+     */
     protected function redirectAfterSuccessAuth()
     {
         if (strlen($this->config->get('u2f.authenticate.postSuccessRedirectRoute'))) {
