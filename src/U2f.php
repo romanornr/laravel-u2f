@@ -112,7 +112,7 @@ class U2f
         $U2fKey->counter = $reg->counter;
         $U2fKey->save();
 
-        $this->session->set($this->config->get('u2f.sessionU2fName'), true);
+        $this->session->put($this->config->get('u2f.sessionU2fName'), true);
 
         return $U2fKey;
     }
