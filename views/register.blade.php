@@ -34,21 +34,21 @@
                     <br>
                     {{ trans('u2f::messages.noButtonAdvise') }}
                 </p>
+				{!! Form::open(array('action' => 'U2fController@register', 'id' => 'form')) !!}
+    			{!! Form::hidden('register', '', ['id' => 'register']) !!}
+				{!! Form::close() !!}
             </div>
         </div>
     </div>
 </div>
 
-
-
-{!! Form::open(array('route' => 'u2f.register', 'id' => 'form')) !!}
+{!! Form::open(array('action' => array('U2fController@register', 'id' => 'form'))) !!}
     {!! Form::hidden('register', '', ['id' => 'register']) !!}
 {!! Form::close() !!}
 
 <script type="text/javascript">
     var sigs = {!! json_encode($currentKeys) !!};
     var req = {!! json_encode($registerData) !!};
-
     var errors = {
         1: "{{ trans('u2f::errors.other_error') }}",
         2: "{{ trans('u2f::errors.bad_request') }}",
