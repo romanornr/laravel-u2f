@@ -34,9 +34,9 @@
                     <br>
                     {{ trans('u2f::messages.noButtonAdvise') }}
                 </p>
-				{!! Form::open(array('action' => 'U2fController@register', 'id' => 'form')) !!}
-    			{!! Form::hidden('register', '', ['id' => 'register']) !!}
-				{!! Form::close() !!}
+                        {{ Form::open(array('action' => 'U2fController@register', 'id' => 'form')) }}
+                        {{ Form::hidden('register', '', ['id' => 'register']) }}
+                        {{ Form::close() }}
             </div>
         </div>
     </div>

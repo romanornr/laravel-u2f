@@ -33,13 +33,16 @@
                     <br>
                     {{ trans('u2f::messages.noButtonAdvise') }}
                 </p>
+                {{ Form::open(array('action' => 'U2fController@auth', 'id' => 'form')) }}
+                {{ Form::hidden('authentication', '', ['id' => 'authentication']) }}
+                {{ Form::close() }}
             </div>
         </div>
     </div>
 </div>
 
 
-{!! Form::open(array('route' => 'u2f.auth', 'id' => 'form')) !!}
+{!! Form::open(array('action' => array('U2fController@auth', 'id' => 'form'))) !!}
 {!! Form::hidden('authentication', '', ['id' => 'authentication']) !!}
 {!! Form::close() !!}
 
