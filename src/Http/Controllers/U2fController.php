@@ -88,7 +88,7 @@ class U2fController extends Controller
     {
         $user = $request->user();
         try {
-            $key = $this->u2f->doAuthenticate($user, session()->put('u2f.authenticationData'), json_decode($request->input('authentication')));
+            $key = $this->u2f->doAuthenticate($user, session()->get('u2f.authenticationData'), json_decode($request->input('authentication')));
             event('u2f.authentication', ['u2fKey' => $key, 'user' => $user]);
             $request->session()->forget('u2f.authenticationData');
             return $this->redirectAfterSuccessAuth();
