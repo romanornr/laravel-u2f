@@ -6,6 +6,14 @@ use Exception;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Http\Request;
 
+/**
+ * Laravel U2F - Integrate FIDO U2F into Laravel 5.4.x applications
+ *
+ * @package  laravel-u2f
+ * @author   LAHAXE Arnaud
+ * @author   romanornr (support for Laravel 5.4)
+ */
+
 class U2fController extends Controller
 {
     /**

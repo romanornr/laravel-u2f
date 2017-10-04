@@ -10,6 +10,14 @@ use Illuminate\Config\Repository as Config;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
+ * Laravel U2F - Integrate FIDO U2F into Laravel 5.4.x applications
+ *
+ * @package  laravel-u2f
+ * @author   LAHAXE Arnaud
+ * @author   romanornr (support for Laravel 5.4)
+ */
+
+/**
  * Class U2f
  */
 class U2f
